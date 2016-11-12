@@ -120,13 +120,13 @@ Find a bug? Want more features? Find something missing in the documentation? Let
 
 ### CHANGELOG
 
-See [`CHANGELOG.md`](https://github.com/maliceio/malice-fprot/blob/master/fprot/CHANGELOG.md)
+See [`CHANGELOG.md`](https://github.com/maliceio/malice-fprot/blob/master/CHANGELOG.md)
 
 ### Contributing
 
 [See all contributors on GitHub](https://github.com/maliceio/malice-fprot/graphs/contributors).
 
-Please update the [CHANGELOG.md](https://github.com/maliceio/malice-fprot/blob/master/fprot/CHANGELOG.md) and submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests/).
+Please update the [CHANGELOG.md](https://github.com/maliceio/malice-fprot/blob/master/CHANGELOG.md) and submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests/).
 
 ### License
 
