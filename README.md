@@ -29,7 +29,7 @@ Usage: fprot [OPTIONS] COMMAND [arg...]
 
 Malice F-PROT AntiVirus Plugin
 
-Version: v0.1.0, BuildTime: 20160214
+Version: v0.1.0, BuildTime: 20170122
 
 Author:
   blacktop - <https://github.com/blacktop>
@@ -62,7 +62,7 @@ Run 'fprot COMMAND --help' for more information on a command.
     "infected": true,
     "result": "EICAR_Test_File (exact)",
     "engine": "4.6.5.141",
-    "updated": "20160213"
+    "updated": "20170122"
   }
 }
 ```
@@ -75,7 +75,7 @@ Run 'fprot COMMAND --help' for more information on a command.
 
 | Infected | Result                  | Engine    | Updated  |
 |----------|-------------------------|-----------|----------|
-| true     | EICAR_Test_File (exact) | 4.6.5.141 | 20160213 |
+| true     | EICAR_Test_File (exact) | 4.6.5.141 | 20170122 |
 
 ---
 
