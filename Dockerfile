@@ -2,7 +2,7 @@ FROM debian:jessie
 
 LABEL maintainer "https://github.com/blacktop"
 
-ENV GO_VERSION 1.7.4
+ENV GO_VERSION 1.7.5
 
 COPY . /go/src/github.com/maliceio/malice-fprot
 RUN buildDeps='ca-certificates \
@@ -15,7 +15,7 @@ RUN buildDeps='ca-certificates \
   && apt-get update -qq \
   && apt-get install -yq $buildDeps libc6-i386 --no-install-recommends \
   && set -x \
-  && echo "Install F-PROT..." \
+  && echo "===> Install F-PROT..." \
   && wget https://github.com/maliceio/malice-av/raw/master/fprot/fp-Linux.x86.32-ws.tar.gz \
     -O /tmp/fp-Linux.x86.32-ws.tar.gz \
   && tar -C /opt -zxvf /tmp/fp-Linux.x86.32-ws.tar.gz \
@@ -27,21 +27,21 @@ RUN buildDeps='ca-certificates \
   && chmod a+x /opt/f-prot/fpscan \
   && chmod u+x /opt/f-prot/fpupdate \
   && ln -fs /opt/f-prot/man_pages/scan-mail.pl.8 /usr/share/man/man8/ \
-  && echo "Install Go..." \
+  && echo "===> Install Go..." \
   && ARCH="$(dpkg --print-architecture)" \
   && wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-$ARCH.tar.gz -O /tmp/go.tar.gz \
   && tar -C /usr/local -xzf /tmp/go.tar.gz \
   && export PATH=$PATH:/usr/local/go/bin \
-  && echo "Building avscan Go binary..." \
+  && echo "===> Building avscan Go binary..." \
   && cd /go/src/github.com/maliceio/malice-fprot \
   && export GOPATH=/go \
   && go version \
   && go get \
   && go build -ldflags "-X main.Version=$(cat VERSION) -X main.BuildTime=$(date -u +%Y%m%d)" -o /bin/avscan \
-  && echo "Clean up unnecessary files..." \
-  && apt-get purge -y --auto-remove $buildDeps \
+  && echo "===> Clean up unnecessary files..." \
+  && apt-get purge -y --auto-remove $buildDeps $(apt-mark showauto) \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /go /usr/local/go
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives /tmp/* /var/tmp/* /go /usr/local/go
 
 # Add EICAR Test Virus File to malware folder
 ADD http://www.eicar.org/download/eicar.com.txt /malware/EICAR
