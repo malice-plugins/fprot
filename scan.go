@@ -28,6 +28,8 @@ var Version string
 // BuildTime stores the plugin's build time
 var BuildTime string
 
+var path string
+
 const (
 	name     = "f-prot"
 	category = "av"
@@ -51,14 +53,24 @@ type ResultsData struct {
 	Updated  string `json:"updated" structs:"updated"`
 }
 
+func assert(err error) {
+	if err != nil {
+		log.WithFields(log.Fields{
+			"plugin":   name,
+			"category": category,
+			"path":     path,
+		}).Fatal(err)
+	}
+}
+
 // AvScan performs antivirus scan
-func AvScan(path string, timeout int) FPROT {
+func AvScan(timeout int) FPROT {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
 	defer cancel()
 
 	results, err := ParseFprotOutput(utils.RunCommand(ctx, "/usr/local/bin/fpscan", "-r", path))
-	utils.Assert(err)
+	assert(err)
 
 	return FPROT{
 		Results: results,
@@ -136,7 +148,7 @@ func getUpdatedDate() string {
 		return BuildTime
 	}
 	updated, err := ioutil.ReadFile("/opt/malice/UPDATED")
-	utils.Assert(err)
+	assert(err)
 	return string(updated)
 }
 
@@ -209,7 +221,8 @@ func webAvScan(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Do AV scan
-	fprot := AvScan(tmpfile.Name(), 60)
+	path = tmpfile.Name()
+	fprot := AvScan(60)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -260,7 +273,7 @@ func main() {
 		},
 		cli.IntFlag{
 			Name:   "timeout",
-			Value:  10,
+			Value:  60,
 			Usage:  "malice plugin timeout (in seconds)",
 			EnvVar: "MALICE_TIMEOUT",
 		},
@@ -297,10 +310,10 @@ func main() {
 
 		if c.Args().Present() {
 			path, err := filepath.Abs(c.Args().First())
-			utils.Assert(err)
+			assert(err)
 
 			if _, err = os.Stat(path); os.IsNotExist(err) {
-				utils.Assert(err)
+				assert(err)
 			}
 
 			fprot := AvScan(path, c.Int("timeout"))
@@ -318,7 +331,7 @@ func main() {
 				printMarkDownTable(fprot)
 			} else {
 				fprotJSON, err := json.Marshal(fprot)
-				utils.Assert(err)
+				assert(err)
 				if c.Bool("post") {
 					request := gorequest.New()
 					if c.Bool("proxy") {
@@ -340,5 +353,5 @@ func main() {
 	}
 
 	err := app.Run(os.Args)
-	utils.Assert(err)
+	assert(err)
 }
