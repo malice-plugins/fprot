@@ -316,7 +316,7 @@ func main() {
 				assert(err)
 			}
 
-			fprot := AvScan(path, c.Int("timeout"))
+			fprot := AvScan(c.Int("timeout"))
 
 			// upsert into Database
 			elasticsearch.InitElasticSearch(elastic)
