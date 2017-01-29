@@ -304,12 +304,14 @@ func main() {
 	}
 	app.Action = func(c *cli.Context) error {
 
+		var err error
+
 		if c.Bool("verbose") {
 			log.SetLevel(log.DebugLevel)
 		}
 
 		if c.Args().Present() {
-			path, err := filepath.Abs(c.Args().First())
+			path, err = filepath.Abs(c.Args().First())
 			assert(err)
 
 			if _, err = os.Stat(path); os.IsNotExist(err) {
