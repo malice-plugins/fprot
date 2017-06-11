@@ -7,7 +7,7 @@ This repository contains a **Dockerfile** of [fprot](http://www.fprot.net/lang/e
 
 ### Dependencies
 
--	[ubuntu:xenial (*118 MB*\)](https://index.docker.io/_/debian/)
+-	[ubuntu:xenial (*118 MB*\)](https://hub.docker.com/r/library/ubuntu/)
 
 ### Installation
 
