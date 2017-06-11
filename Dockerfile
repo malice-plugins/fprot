@@ -34,7 +34,7 @@ RUN buildDeps='ca-certificates \
   && ln -fs /opt/f-prot/man_pages/scan-mail.pl.8 /usr/share/man/man8/ \
   && echo "===> Install Go..." \
   && ARCH="$(dpkg --print-architecture)" \
-  && wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-$ARCH.tar.gz -O /tmp/go.tar.gz \
+  && wget -q https://storage.googleapis.com/golang/go$GO_VERSION.linux-$ARCH.tar.gz -O /tmp/go.tar.gz \
   && tar -C /usr/local -xzf /tmp/go.tar.gz \
   && export PATH=$PATH:/usr/local/go/bin \
   && echo "===> Building avscan Go binary..." \
