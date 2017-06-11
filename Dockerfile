@@ -1,8 +1,13 @@
-FROM debian:jessie
+FROM ubuntu:xenial
 
 LABEL maintainer "https://github.com/blacktop"
 
-ENV GO_VERSION 1.7.5
+LABEL malice.plugin.repository = "https://github.com/maliceio/malice-fprot.git"
+LABEL malice.plugin.category="av"
+LABEL malice.plugin.mime="*"
+LABEL malice.plugin.docker.engine="*"
+
+ENV GO_VERSION 1.8.3
 
 COPY . /go/src/github.com/maliceio/malice-fprot
 RUN buildDeps='ca-certificates \
@@ -52,7 +57,6 @@ RUN /opt/f-prot/fpupdate
 WORKDIR /malware
 
 ENTRYPOINT ["/bin/avscan"]
-
 CMD ["--help"]
 
 # http://files.f-prot.com/files/unix-trial/fp-Linux.x86.64-fs.tar.gz
