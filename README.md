@@ -1,7 +1,7 @@
 malice-fprot
 ============
 
-[![Circle CI](https://circleci.com/gh/maliceio/malice-fprot.png?style=shield)](https://circleci.com/gh/maliceio/malice-fprot) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Image](https://img.shields.io/badge/docker%20image-293%20MB-blue.svg)](https://hub.docker.com/r/malice/fprot/)
+[![Circle CI](https://circleci.com/gh/maliceio/malice-fprot.png?style=shield)](https://circleci.com/gh/maliceio/malice-fprot) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Image](https://img.shields.io/badge/docker%20image-290%20MB-blue.svg)](https://hub.docker.com/r/malice/fprot/)
 
 This repository contains a **Dockerfile** of [fprot](http://www.fprot.net/lang/en/) for [Docker](https://www.docker.io/)'s [trusted build](https://index.docker.io/u/malice/fprot/) published to the public [DockerHub](https://index.docker.io/).
 

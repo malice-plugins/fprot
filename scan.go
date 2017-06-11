@@ -80,6 +80,31 @@ func AvScan(timeout int) FPROT {
 // ParseFprotOutput convert fprot output into ResultsData struct
 func ParseFprotOutput(fprotout string, err error) (ResultsData, error) {
 
+	// F-PROT Antivirus CLS version 6.7.10.6267, 32bit (built: 2012-03-27T12-34-14)
+	//
+	//
+	// FRISK Software International (C) Copyright 1989-2011
+	// Engine version:   4.6.5.141
+	// Arguments:        -r EICAR
+	// Virus signatures: 201706110152
+	//                   (/opt/f-prot/antivir.def)
+	//
+	// [Found virus] <EICAR_Test_File (exact)> 	EICAR
+	// Scanning: /
+	//
+	// Results:
+	//
+	// Files: 1
+	// Skipped files: 0
+	// MBR/boot sectors checked: 0
+	// Objects scanned: 1
+	// Infected objects: 1
+	// Infected files: 1
+	// Files with errors: 0
+	// Disinfected: 0
+	//
+	// Running time: 00:00
+
 	if err != nil {
 		return ResultsData{}, err
 	}
