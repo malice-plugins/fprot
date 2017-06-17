@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -15,9 +16,9 @@ import (
 	log "github.com/Sirupsen/logrus"
 	"github.com/fatih/structs"
 	"github.com/gorilla/mux"
+	"github.com/maliceio/go-plugin-utils/clitable"
 	"github.com/maliceio/go-plugin-utils/database/elasticsearch"
 	"github.com/maliceio/go-plugin-utils/utils"
-	"github.com/maliceio/malice/utils/clitable"
 	"github.com/parnurzeal/gorequest"
 	"github.com/urfave/cli"
 )
@@ -55,12 +56,41 @@ type ResultsData struct {
 
 func assert(err error) {
 	if err != nil {
-		log.WithFields(log.Fields{
-			"plugin":   name,
-			"category": category,
-			"path":     path,
-		}).Fatal(err)
+		// Sophos exits with error status 3 if it finds a virus...why?!
+		if err.Error() != "exit status 1" {
+			log.WithFields(log.Fields{
+				"plugin":   name,
+				"category": category,
+				"path":     path,
+			}).Fatal(err)
+		}
 	}
+}
+
+// RunCommand runs cmd on file
+func RunCommand(ctx context.Context, cmd string, args ...string) (string, error) {
+
+	var c *exec.Cmd
+
+	if ctx != nil {
+		c = exec.CommandContext(ctx, cmd, args...)
+	} else {
+		c = exec.Command(cmd, args...)
+	}
+
+	output, err := c.CombinedOutput()
+	if err != nil {
+		return string(output), err
+	}
+
+	// check for exec context timeout
+	if ctx != nil {
+		if ctx.Err() == context.DeadlineExceeded {
+			return "", fmt.Errorf("command %s timed out", cmd)
+		}
+	}
+
+	return string(output), nil
 }
 
 // AvScan performs antivirus scan
@@ -69,7 +99,7 @@ func AvScan(timeout int) FPROT {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
 	defer cancel()
 
-	results, err := ParseFprotOutput(utils.RunCommand(ctx, "/usr/local/bin/fpscan", "-r", path))
+	results, err := ParseFprotOutput(RunCommand(ctx, "/usr/local/bin/fpscan", "-r", path))
 	assert(err)
 
 	return FPROT{
@@ -105,7 +135,7 @@ func ParseFprotOutput(fprotout string, err error) (ResultsData, error) {
 	//
 	// Running time: 00:00
 
-	if err != nil {
+	if err != nil && err.Error() != "exit status 1" {
 		return ResultsData{}, err
 	}
 
@@ -185,7 +215,7 @@ func parseUpdatedDate(date string) string {
 
 func updateAV(ctx context.Context) error {
 	fmt.Println("Updating F-PROT...")
-	fmt.Println(utils.RunCommand(ctx, "/opt/f-prot/fpupdate"))
+	fmt.Println(RunCommand(ctx, "/opt/f-prot/fpupdate"))
 	// Update UPDATED file
 	t := time.Now().Format("20060102")
 	err := ioutil.WriteFile("/opt/malice/UPDATED", []byte(t), 0644)

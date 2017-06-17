@@ -1,0 +1,19 @@
+FROM malice/fprot:base
+
+COPY . /go/src/github.com/maliceio/malice-fprot
+RUN export PATH=$PATH:/usr/local/go/bin \
+  && echo "===> Building avscan Go binary..." \
+  && cd /go/src/github.com/maliceio/malice-fprot \
+  && export GOPATH=/go \
+  && go version \
+  && go get \
+  && go build -ldflags "-X main.Version=$(cat VERSION) -X main.BuildTime=$(date -u +%Y%m%d)" -o /bin/avscan
+
+WORKDIR /malware
+
+ENTRYPOINT ["/bin/avscan"]
+CMD ["--help"]
+
+# http://files.f-prot.com/files/unix-trial/fp-Linux.x86.64-fs.tar.gz
+# http://files.f-prot.com/files/unix-trial/fp-Linux.x86.32-ws.tar.gz
+# http://files.f-prot.com/files/unix-trial/fp-Linux.x86.64-ws.tar.gz
