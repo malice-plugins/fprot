@@ -7,7 +7,7 @@ This repository contains a **Dockerfile** of [fprot](http://www.fprot.net/lang/e
 
 ### Dependencies
 
--	[ubuntu:xenial (*118 MB*\)](https://hub.docker.com/r/library/ubuntu/)
+-	[debian:jessie (*125 MB*\)](https://index.docker.io/_/debian/)
 
 ### Installation
 
