@@ -1,15 +1,17 @@
 # Ignore .git folder
 .git*
-
 .gitignore
+
+.circleci*
+docs*
+tests*
+
 README.md
 README.md.bu
 LICENSE
 CHANGELOG.md
-circle.yml
 Makefile
-docs*
-results.json
+docker-compose.ci.yml
 
 fp-Linux.x86.32-ws.tar.gz
 fp-Linux.x86.64-fs.tar.gz
