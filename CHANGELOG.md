@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- changing illegal json key "f-prot" to "fprot"
 ### Added
 
 -	Timeouts to protect against bad files

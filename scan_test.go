@@ -93,7 +93,7 @@ func parseOutput(output string) (string, error) {
 
 // TestParseResult tests the ParseFSecureOutput function.
 func TestParseResult(t *testing.T) {
-	b, err := ioutil.ReadFile("av_scan.out") // just pass the file name
+	b, err := ioutil.ReadFile("tests/av_scan.out") // just pass the file name
 	if err != nil {
 		fmt.Print(err)
 	}
@@ -112,7 +112,7 @@ func TestParseResult(t *testing.T) {
 
 // TestParseVersion tests the GetFSecureVersion function.
 func TestParseVersion(t *testing.T) {
-	b, err := ioutil.ReadFile("av_scan.out") // just pass the file name
+	b, err := ioutil.ReadFile("tests/av_version.out") // just pass the file name
 	if err != nil {
 		fmt.Print(err)
 	}

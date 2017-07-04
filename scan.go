@@ -33,18 +33,18 @@ var BuildTime string
 var path string
 
 const (
-	name     = "f-prot"
+	name     = "fprot"
 	category = "av"
 )
 
 type pluginResults struct {
 	ID   string      `json:"id" structs:"id,omitempty"`
-	Data ResultsData `json:"f-prot" structs:"f-prot"`
+	Data ResultsData `json:"fprot" structs:"fprot"`
 }
 
 // FPROT json object
 type FPROT struct {
-	Results ResultsData `json:"f-prot"`
+	Results ResultsData `json:"fprot"`
 }
 
 // ResultsData json object

@@ -1,0 +1,35 @@
+{
+  "took": 43,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "hits": {
+    "total": 1,
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "malice",
+        "_type": "samples",
+        "_id": "AV0O3Y0soIMcW6laeoAZ",
+        "_score": 1,
+        "_source": {
+          "plugins": {
+            "av": {
+              "fprot": {
+                "engine": "4.6.5.141",
+                "infected": true,
+                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| true | EICAR_Test_File (exact) | 4.6.5.141 | 20170704 |\n",
+                "result": "EICAR_Test_File (exact)",
+                "updated": "20170704"
+              }
+            }
+          },
+          "scan_date": "2017-07-04T18:29:46.914892163Z"
+        }
+      }
+    ]
+  }
+}

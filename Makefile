@@ -3,7 +3,7 @@ ORG=malice
 NAME=fprot
 VERSION=$(shell cat VERSION)
 
-all: gotest build size test
+all: build size test avtest gotest
 
 build:
 	docker build -t $(ORG)/$(NAME):$(VERSION) .
@@ -15,7 +15,7 @@ dev: test
 	docker build -f Dockerfile.dev -t $(ORG)/$(NAME):$(VERSION) .
 
 size:
-	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)%20GB-blue/' README.md
+	sed -i.bu 's/docker%20image-.*-blue/docker%20image-$(shell docker images --format "{{.Size}}" $(ORG)/$(NAME):$(VERSION)| cut -d' ' -f1)-blue/' README.md
 
 tags:
 	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" $(ORG)/$(NAME)
@@ -34,11 +34,12 @@ avtest:
 	@docker run --init --rm --entrypoint=bash $(ORG)/$(NAME):$(VERSION) -c "/usr/local/bin/fpscan -r EICAR" > tests/av_scan.out || true
 
 test:
-	docker run --init -d --name elasticsearch blacktop/elasticsearch
-	docker run --init --rm $(ORG)/$(NAME):$(VERSION)
+	docker run --init -d --name elasticsearch -p 9200:9200 blacktop/elasticsearch
+	sleep 10; docker run --init --rm $(ORG)/$(NAME):$(VERSION)
 	docker run --init --rm --link elasticsearch $(ORG)/$(NAME):$(VERSION) -V EICAR | jq . > docs/results.json
 	cat docs/results.json | jq .
-	http localhost:9200/malice/_search | jq -r '.hits.hits[] .markdown' > docs/SAMPLE.md
+	http localhost:9200/malice/_search | jq . > docs/elastic.json
+	cat docs/elastic.json | jq -r '.hits.hits[] ._source.plugins.av.fprot.markdown' > docs/SAMPLE.md
 	docker rm -f elasticsearch
 
 circle:
