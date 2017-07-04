@@ -1,7 +1,7 @@
 malice-fprot
 ============
 
-[![Circle CI](https://circleci.com/gh/maliceio/malice-fprot.png?style=shield)](https://circleci.com/gh/maliceio/malice-fprot) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Image](https://img.shields.io/badge/docker%20image-299%20MB-blue.svg)](https://hub.docker.com/r/malice/fprot/)
+[![Circle CI](https://circleci.com/gh/malice-plugins/fprot.png?style=shield)](https://circleci.com/gh/malice-plugins/fprot) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Image](https://img.shields.io/badge/docker%20image-299%20MB-blue.svg)](https://hub.docker.com/r/malice/fprot/)
 
 This repository contains a **Dockerfile** of [fprot](http://www.fprot.net/lang/en/) for [Docker](https://www.docker.io/)'s [trusted build](https://index.docker.io/u/malice/fprot/) published to the public [DockerHub](https://index.docker.io/).
 
@@ -83,24 +83,24 @@ Sample Output
 Documentation
 -------------
 
--	[To write results to ElasticSearch](https://github.com/maliceio/malice-fprot/blob/master/docs/elasticsearch.md)
--	[To create a F-PROT scan micro-service](https://github.com/maliceio/malice-fprot/blob/master/docs/web.md)
--	[To post results to a webhook](https://github.com/maliceio/malice-fprot/blob/master/docs/callback.md)
--	[To update the AV definitions](https://github.com/maliceio/malice-fprot/blob/master/docs/update.md)
+-	[To write results to ElasticSearch](https://github.com/malice-plugins/fprot/blob/master/docs/elasticsearch.md)
+-	[To create a F-PROT scan micro-service](https://github.com/malice-plugins/fprot/blob/master/docs/web.md)
+-	[To post results to a webhook](https://github.com/malice-plugins/fprot/blob/master/docs/callback.md)
+-	[To update the AV definitions](https://github.com/malice-plugins/fprot/blob/master/docs/update.md)
 
 ### Issues
 
-Find a bug? Want more features? Find something missing in the documentation? Let me know! Please don't hesitate to [file an issue](https://github.com/maliceio/malice-fprot/issues/new).
+Find a bug? Want more features? Find something missing in the documentation? Let me know! Please don't hesitate to [file an issue](https://github.com/malice-plugins/fprot/issues/new).
 
 ### CHANGELOG
 
-See [`CHANGELOG.md`](https://github.com/maliceio/malice-fprot/blob/master/CHANGELOG.md)
+See [`CHANGELOG.md`](https://github.com/malice-plugins/fprot/blob/master/CHANGELOG.md)
 
 ### Contributing
 
-[See all contributors on GitHub](https://github.com/maliceio/malice-fprot/graphs/contributors).
+[See all contributors on GitHub](https://github.com/malice-plugins/fprot/graphs/contributors).
 
-Please update the [CHANGELOG.md](https://github.com/maliceio/malice-fprot/blob/master/CHANGELOG.md) and submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests/).
+Please update the [CHANGELOG.md](https://github.com/malice-plugins/fprot/blob/master/CHANGELOG.md) and submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests/).
 
 ### License
 

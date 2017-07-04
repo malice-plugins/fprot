@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -16,7 +18,6 @@ import (
 	log "github.com/Sirupsen/logrus"
 	"github.com/fatih/structs"
 	"github.com/gorilla/mux"
-	"github.com/maliceio/go-plugin-utils/clitable"
 	"github.com/maliceio/go-plugin-utils/database/elasticsearch"
 	"github.com/maliceio/go-plugin-utils/utils"
 	"github.com/parnurzeal/gorequest"
@@ -52,6 +53,7 @@ type ResultsData struct {
 	Result   string `json:"result" structs:"result"`
 	Engine   string `json:"engine" structs:"engine"`
 	Updated  string `json:"updated" structs:"updated"`
+	MarkDown string `json:"markdown,omitempty" structs:"markdown,omitempty"`
 }
 
 func assert(err error) {
@@ -222,18 +224,17 @@ func updateAV(ctx context.Context) error {
 	return err
 }
 
-func printMarkDownTable(fprot FPROT) {
+func generateMarkDownTable(f FPROT) string {
+	var tplOut bytes.Buffer
 
-	fmt.Println("#### F-PROT")
-	table := clitable.New([]string{"Infected", "Result", "Engine", "Updated"})
-	table.AddRow(map[string]interface{}{
-		"Infected": fprot.Results.Infected,
-		"Result":   fprot.Results.Result,
-		"Engine":   fprot.Results.Engine,
-		"Updated":  fprot.Results.Updated,
-	})
-	table.Markdown = true
-	table.Print()
+	t := template.Must(template.New("fprot").Parse(tpl))
+
+	err := t.Execute(&tplOut, f)
+	if err != nil {
+		log.Println("executing template:", err)
+	}
+
+	return tplOut.String()
 }
 
 func printStatus(resp gorequest.Response, body string, errs []error) {
@@ -368,6 +369,7 @@ func main() {
 			}
 
 			fprot := AvScan(c.Int("timeout"))
+			fprot.Results.MarkDown = generateMarkDownTable(fprot)
 
 			// upsert into Database
 			elasticsearch.InitElasticSearch(elastic)
@@ -379,8 +381,9 @@ func main() {
 			})
 
 			if c.Bool("table") {
-				printMarkDownTable(fprot)
+				fmt.Println(fprot.Results.MarkDown)
 			} else {
+				fprot.Results.MarkDown = ""
 				fprotJSON, err := json.Marshal(fprot)
 				assert(err)
 				if c.Bool("post") {
@@ -398,7 +401,7 @@ func main() {
 				fmt.Println(string(fprotJSON))
 			}
 		} else {
-			log.Fatal(fmt.Errorf("Please supply a file to scan with malice/fprot"))
+			log.Fatal(fmt.Errorf("please supply a file to scan with malice/fprot"))
 		}
 		return nil
 	}
