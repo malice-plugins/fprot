@@ -33,6 +33,9 @@ avtest:
 	@echo "===> F-PROT EICAR Test"
 	@docker run --init --rm --entrypoint=bash $(ORG)/$(NAME):$(VERSION) -c "/usr/local/bin/fpscan -r EICAR" > tests/av_scan.out || true
 
+update:
+	@docker run  --rm $(ORG)/$(NAME):$(VERSION) update
+
 test:
 	docker run --init -d --name elasticsearch -p 9200:9200 blacktop/elasticsearch
 	sleep 10; docker run --init --rm $(ORG)/$(NAME):$(VERSION)

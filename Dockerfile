@@ -52,7 +52,7 @@ RUN buildDeps='ca-certificates \
 ADD http://www.eicar.org/download/eicar.com.txt /malware/EICAR
 
 # Update F-PROT Definitions
-RUN /opt/f-prot/fpupdate
+RUN mkdir -p /opt/malice && /opt/f-prot/fpupdate
 
 WORKDIR /malware
 
