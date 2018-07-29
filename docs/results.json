@@ -1,8 +1,8 @@
 {
   "fprot": {
-    "infected": true,
-    "result": "EICAR_Test_File (exact)",
+    "infected": false,
+    "result": "",
     "engine": "4.6.5.141",
-    "updated": "20170704"
+    "updated": "20180729"
   }
 }

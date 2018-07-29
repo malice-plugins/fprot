@@ -26,3 +26,5 @@ _testmain.go
 fp-Linux.x86.32-ws.tar.gz
 README.md.bu
 .circleci/build_num
+tests/malware
+tests/not.malware
