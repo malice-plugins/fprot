@@ -10,15 +10,14 @@ LABEL malice.plugin.docker.engine="*"
 ENV GO_VERSION 1.11
 
 COPY . /go/src/github.com/maliceio/malice-fprot
-RUN buildDeps='ca-certificates \
-  build-essential \
+RUN buildDeps='build-essential \
   mercurial \
   git-core \
   unzip \
   wget' \
   && set -x \
   && apt-get update -qq \
-  && apt-get install -yq $buildDeps libc6-i386 --no-install-recommends \
+  && apt-get install -yq $buildDeps libc6-i386 ca-certificates --no-install-recommends \
   && set -x \
   && echo "===> Install F-PROT..." \
   && wget https://github.com/maliceio/malice-av/raw/master/fprot/fp-Linux.x86.32-ws.tar.gz \
