@@ -7,7 +7,7 @@ VERSION?=$(shell cat VERSION)
 MALWARE=tests/malware
 NOT_MALWARE=tests/not.malware
 
-all: build size tag test test_markdown
+all: build size tag test_all
 
 .PHONY: build
 build:
