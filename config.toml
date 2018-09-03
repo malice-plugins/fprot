@@ -1,0 +1,14 @@
+# malice/fprot plugin configuration.
+
+name = 'fprot'
+description = 'Malice F-PROT AntiVirus'
+category = 'av'
+version = '0.1.0'
+
+accepts = [ '*' ]
+
+[system]
+cpu = 0.5
+ram = 256 # MB
+
+[settings]

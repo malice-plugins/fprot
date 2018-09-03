@@ -1,5 +1,5 @@
 {
-  "took": 41,
+  "took": 46,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -8,13 +8,13 @@
     "failed": 0
   },
   "hits": {
-    "total": 1,
+    "total": 2,
     "max_score": 1,
     "hits": [
       {
         "_index": "malice",
         "_type": "samples",
-        "_id": "Gdl_5GQBorQMWl9CmhBN",
+        "_id": "KecanWUBBk6LAotWv8p4",
         "_score": 1,
         "_source": {
           "plugins": {
@@ -22,13 +22,33 @@
               "fprot": {
                 "engine": "4.6.5.141",
                 "infected": false,
-                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180729 |\n",
+                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180903 |\n",
                 "result": "",
-                "updated": "20180729"
+                "updated": "20180903"
               }
             }
           },
-          "scan_date": "2018-07-29T05:25:25.188474197Z"
+          "scan_date": "2018-09-03T01:45:00.524650964Z"
+        }
+      },
+      {
+        "_index": "malice",
+        "_type": "samples",
+        "_id": "KucanWUBBk6LAotWycrd",
+        "_score": 1,
+        "_source": {
+          "plugins": {
+            "av": {
+              "fprot": {
+                "engine": "4.6.5.141",
+                "infected": false,
+                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180903 |\n",
+                "result": "",
+                "updated": "20180903"
+              }
+            }
+          },
+          "scan_date": "2018-09-03T01:45:03.19525934Z"
         }
       }
     ]
