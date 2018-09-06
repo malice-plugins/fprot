@@ -1,4 +1,17 @@
-FROM debian:jessie
+####################################################
+# GOLANG BUILDER
+####################################################
+FROM golang:1.11 as go_builder
+
+COPY . /go/src/github.com/malice-plugins/fprot
+WORKDIR /go/src/github.com/malice-plugins/fprot
+RUN go get -u github.com/golang/dep/cmd/dep && dep ensure
+RUN go build -ldflags "-s -w -X main.Version=v$(cat VERSION) -X main.BuildTime=$(date -u +%Y%m%d)" -o /bin/avscan
+
+####################################################
+# PLUGIN BUILDER
+####################################################
+FROM ubuntu:bionic
 
 LABEL maintainer "https://github.com/blacktop"
 
@@ -7,17 +20,17 @@ LABEL malice.plugin.category="av"
 LABEL malice.plugin.mime="*"
 LABEL malice.plugin.docker.engine="*"
 
-ENV GO_VERSION 1.11
+# Create a malice user and group first so the IDs get set the same way, even as
+# the rest of this may change over time.
+RUN groupadd -r malice \
+  && useradd --no-log-init -r -g malice malice \
+  && mkdir /malware \
+  && chown -R malice:malice /malware
 
-COPY . /go/src/github.com/maliceio/malice-fprot
-RUN buildDeps='build-essential \
-  mercurial \
-  git-core \
-  unzip \
-  wget' \
+RUN buildDeps='ca-certificates wget' \
   && set -x \
   && apt-get update -qq \
-  && apt-get install -yq $buildDeps libc6-i386 ca-certificates --no-install-recommends \
+  && apt-get install -yq $buildDeps libc6-i386 --no-install-recommends \
   && set -x \
   && echo "===> Install F-PROT..." \
   && wget https://github.com/maliceio/malice-av/raw/master/fprot/fp-Linux.x86.32-ws.tar.gz \
@@ -31,21 +44,15 @@ RUN buildDeps='build-essential \
   && chmod a+x /opt/f-prot/fpscan \
   && chmod u+x /opt/f-prot/fpupdate \
   && ln -fs /opt/f-prot/man_pages/scan-mail.pl.8 /usr/share/man/man8/ \
-  && echo "===> Install Go..." \
-  && ARCH="$(dpkg --print-architecture)" \
-  && wget -q https://storage.googleapis.com/golang/go$GO_VERSION.linux-$ARCH.tar.gz -O /tmp/go.tar.gz \
-  && tar -C /usr/local -xzf /tmp/go.tar.gz \
-  && export PATH=$PATH:/usr/local/go/bin \
-  && echo "===> Building avscan Go binary..." \
-  && cd /go/src/github.com/maliceio/malice-fprot \
-  && export GOPATH=/go \
-  && go version \
-  && go get \
-  && go build -ldflags "-s -w -X main.Version=v$(cat VERSION) -X main.BuildTime=$(date -u +%Y%m%d)" -o /bin/avscan \
   && echo "===> Clean up unnecessary files..." \
-  && apt-get purge -y --auto-remove $buildDeps \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives /tmp/* /var/tmp/* /go /usr/local/go
+  && apt-get purge -y --auto-remove $buildDeps && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives /tmp/* /var/tmp/*
+
+# Ensure ca-certificates is installed for elasticsearch to use https
+RUN apt-get update -qq && apt-get install -yq --no-install-recommends ca-certificates \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY --from=go_builder /bin/avscan /bin/avscan
 
 # Add EICAR Test Virus File to malware folder
 ADD http://www.eicar.org/download/eicar.com.txt /malware/EICAR
@@ -58,6 +65,7 @@ WORKDIR /malware
 ENTRYPOINT ["/bin/avscan"]
 CMD ["--help"]
 
+####################################################
 # http://files.f-prot.com/files/unix-trial/fp-Linux.x86.64-fs.tar.gz
 # http://files.f-prot.com/files/unix-trial/fp-Linux.x86.32-ws.tar.gz
 # http://files.f-prot.com/files/unix-trial/fp-Linux.x86.64-ws.tar.gz

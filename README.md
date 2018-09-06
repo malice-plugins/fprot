@@ -1,6 +1,6 @@
 # malice-fprot
 
-[![Circle CI](https://circleci.com/gh/malice-plugins/fprot.png?style=shield)](https://circleci.com/gh/malice-plugins/fprot) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Image](https://img.shields.io/badge/docker%20image-317MB-blue.svg)](https://hub.docker.com/r/malice/fprot/)
+[![Circle CI](https://circleci.com/gh/malice-plugins/fprot.png?style=shield)](https://circleci.com/gh/malice-plugins/fprot) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org) [![Docker Stars](https://img.shields.io/docker/stars/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Pulls](https://img.shields.io/docker/pulls/malice/fprot.svg)](https://hub.docker.com/r/malice/fprot/) [![Docker Image](https://img.shields.io/badge/docker%20image-267MB-blue.svg)](https://hub.docker.com/r/malice/fprot/)
 
 Malice F-PROT AntiVirus Plugin
 
@@ -8,7 +8,7 @@ Malice F-PROT AntiVirus Plugin
 
 ### Dependencies
 
-- [debian:jessie (_125 MB_\)](https://index.docker.io/_/debian/)
+- [ubuntu:bionic (_84.1 MB_\)](https://hub.docker.com/_/ubuntu/)
 
 ## Installation
 
