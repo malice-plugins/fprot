@@ -1,5 +1,5 @@
 {
-  "took": 46,
+  "took": 58,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -14,7 +14,7 @@
       {
         "_index": "malice",
         "_type": "samples",
-        "_id": "KecanWUBBk6LAotWv8p4",
+        "_id": "ElM5rGUBNKDJvW4fEIiv",
         "_score": 1,
         "_source": {
           "plugins": {
@@ -22,19 +22,19 @@
               "fprot": {
                 "engine": "4.6.5.141",
                 "infected": false,
-                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180903 |\n",
+                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180905 |\n",
                 "result": "",
-                "updated": "20180903"
+                "updated": "20180905"
               }
             }
           },
-          "scan_date": "2018-09-03T01:45:00.524650964Z"
+          "scan_date": "2018-09-06T00:12:25.638077313Z"
         }
       },
       {
         "_index": "malice",
         "_type": "samples",
-        "_id": "KucanWUBBk6LAotWycrd",
+        "_id": "E1M5rGUBNKDJvW4fGoiH",
         "_score": 1,
         "_source": {
           "plugins": {
@@ -42,13 +42,13 @@
               "fprot": {
                 "engine": "4.6.5.141",
                 "infected": false,
-                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180903 |\n",
+                "markdown": "#### F-PROT\n| Infected      | Result      | Engine      | Updated      |\n|:-------------:|:-----------:|:-----------:|:------------:|\n| false |  | 4.6.5.141 | 20180905 |\n",
                 "result": "",
-                "updated": "20180903"
+                "updated": "20180905"
               }
             }
           },
-          "scan_date": "2018-09-03T01:45:03.19525934Z"
+          "scan_date": "2018-09-06T00:12:28.165384683Z"
         }
       }
     ]
